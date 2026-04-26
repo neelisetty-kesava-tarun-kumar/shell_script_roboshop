@@ -32,12 +32,12 @@ VALIDATE $? "Installing Maven"
 useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGS_FILE
 VALIDATE $? "Creating and Adding the user for roboshop"
 
-id roboshop &>> $LOGS_FILE
+id roboshop &>>$LOGS_FILE
 if [ $? -ne 0 ]; then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>> $LOGS_FILE
-    VALIDATE $? "Creating system user for roboshop"
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
+    VALIDATE $? "Creating system user"
 else
-    echo -e "$Y User roboshop already exists, skipping user creation $N" | tee -a $LOGS_FILE
+    echo -e "Roboshop user already exist ... $Y SKIPPING $N"
 fi
 
 mkdir -p /app

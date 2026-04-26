@@ -73,14 +73,5 @@ cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongodb.repo
 dnf install mongodb-mongosh -y &>> $LOGS_FILE
 VALIDATE $? "Installing MongoDB Shell"
 
-INDEX=$(mongosh --host $MONGODB_HOST --quiet --eval 'db.getMongo().getDBNames().indexOf("user")')
-
-if [ $INDEX -le 0 ]; then
-    mongosh --host $MONGODB_HOST </app/db/master-data.js &>> $LOGS_FILE
-    VALIDATE $? "Inserting data into MongoDB"
-else
-    echo -e "$Y user database already exists, skipping data insertion into MongoDB $N" | tee -a $LOGS_FILE
-fi
-
 systemctl restart user
 VALIDATE $? "Restarting user service"

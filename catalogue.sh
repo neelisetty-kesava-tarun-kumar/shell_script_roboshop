@@ -73,5 +73,15 @@ cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongodb.repo
 dnf install mongodb-mongosh -y &>> $LOGS_FILE
 VALIDATE $? "Installing MongoDB Shell"
 
-mongosh --host $MONGODB_HOST --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
-mongosh --host $MONGODB_HOST </app/db/master-data.js
+INDEX=$(mongosh --host $MONGODB_HOST --quiet --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
+
+if [ $INDEX -le 0 ]; then
+    #echo -e "$Y catalogue database does not exist, inserting the data into MongoDB $N" | tee -a $LOGS_FILE
+    mongosh --host $MONGODB_HOST </app/db/master-data.js &>> $LOGS_FILE
+    VALIDATE $? "Inserting data into MongoDB"
+else
+    echo -e "$Y Catalogue database already exists, skipping data insertion into MongoDB $N" | tee -a $LOGS_FILE
+fi
+
+systemctl restart catalogue
+VALIDATE $? "Restarting catalogue service"

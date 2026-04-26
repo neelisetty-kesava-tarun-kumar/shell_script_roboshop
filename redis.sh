@@ -7,8 +7,6 @@ R='\e[0;31m'
 G='\e[0;32m'
 Y='\e[0;33m'
 N='\e[0m'
-SCRIPT_DIR=$PWD
-MONGODB_HOST="mongodb.kesavatarun.in" # This variable is used to store the hostname of the MongoDB instance, which is used to connect to the MongoDB database and execute the master-data.js script. The user should replace this variable with the actual hostname of their MongoDB instance, which can be obtained from the AWS EC2 console or by using the AWS CLI. This is important for the script to work correctly and to ensure that the data is inserted into the correct MongoDB instance. The user should also ensure that the MongoDB instance is running and accessible from the machine where this script is being executed, and that the necessary ports are open for communication between the script and the MongoDB instance.
 
 if [ $USERID -ne 0 ]; then
     echo -e "$R Please run this script with root user access $N" | tee -a $LOGS_FILE

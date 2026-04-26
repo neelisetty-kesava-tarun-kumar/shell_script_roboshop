@@ -13,7 +13,7 @@ do
     --query 'Instances[0].InstanceId' \
     --output text )
 
-    if [ $instance == "frontend" ]; then
+    if [ $instance == "frontend" ]; then # "$instance" is safe to use, It will not break the code, Example: If the instance name is my app without the brackets, it will not work, but if we use "$instance", it will work fine. The user should be aware of this when naming the instances, It is recommended to use names without spaces or special characters to avoid any issues. So that the instances will be created successfully and the script will work as expected.
         IP=$(
             aws ec2 describe-instances \
             --instance-ids $INSTANCE_ID \

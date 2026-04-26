@@ -26,3 +26,16 @@ VALIDATE(){
     fi
 }
 
+cp $SCRIPT_DIR/rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
+VALIDATE $? "Adding RabbitMQ repository file"
+
+dnf install rabbitmq-server -y &>> $LOGS_FILE
+VALIDATE $? "Installing RabbitMQ Server"
+
+systemctl enable rabbitmq-server
+systemctl start rabbitmq-server
+VALIDATE $? "Enabling and Starting RabbitMQ service"
+
+rabbitmqctl add_user roboshop roboshop123
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+VALIDATE $? "Creating RabbitMQ user and setting up permissions for roboshop"

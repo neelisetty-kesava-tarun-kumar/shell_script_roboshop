@@ -1,7 +1,7 @@
 #!/bin/bash
 
 USERID=$(id -u)
-LOGS_FOLDER="/var/log/shell_script_roboshop"
+LOGS_FOLDER="/var/log/shell_script_roboshop" # This variable is used to store the logs of the script in a specific folder, which is useful for troubleshooting and debugging purposes. The user can check the logs to see if there were any errors or issues during the execution of the script, and it can also be used to track the progress of the script. The user should ensure that they have the necessary permissions to create and write to this folder, and it is recommended to use a folder that is not easily accessible to unauthorized users for security reasons.
 LOGS_FILE="$LOGS_FOLDER/$0.log"
 R='\e[0;31m'
 G='\e[0;32m'
@@ -27,10 +27,10 @@ VALIDATE(){
 cp mongo.repo /etc/yum.repos.d/mongodb.repo
 VALIDATE $? "Copying MongoDB repo file"
 
-dnf install mongodb-org -y
+dnf install mongodb-org -y &>> $LOGS_FILE
 VALIDATE $? "Installing MongoDB Server"
 
-systemctl enable mongod
+systemctl enable mongod &>> $LOGS_FILE
 VALIDATE $? "Enabling MongoDB Service"
 
 systemctl start mongod

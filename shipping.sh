@@ -7,6 +7,7 @@ R='\e[0;31m'
 G='\e[0;32m'
 Y='\e[0;33m'
 N='\e[0m'
+SCRIPT_DIR=$PWD
 MYSQL_HOST="mysql.kesavatarun.in"
 
 if [ $USERID -ne 0 ]; then

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#This will use the given ID parameters to create the various instances from the terminal and also update the records in the Route53 for the respective instances. The user should replace the parameters with their own values before running the script. So that the instances will be created successfully and the DNS records will be updated correctly in Route53 and AWS EC2 also.
+
 SG_ID="sg-0075bb69cff1075c4" #Should replace with your ID
 AMI_ID="ami-0220d79f3f480ecf5" #Should replace with your AMI ID
 ZONE_ID="Z00664892VVKTE5BFORKG" #Should replace with your Hosted Zone ID

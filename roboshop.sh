@@ -13,7 +13,7 @@ do
     --query 'Instances[0].InstanceID' \
     --output text )
 
-    if [ $instace == "frontend" ]; then
+    if [ $instance == "frontend" ]; then
         IP=$(
             aws ec2 describe-instances \
             --instance-ids $INSTANCE_ID \
